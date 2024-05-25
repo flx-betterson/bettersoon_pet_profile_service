@@ -3,11 +3,18 @@
 import express from 'express';
 import cors from 'cors';
 import petProfileRoutes from './api/routes/petProfileRoutes.js'; // Ensure correct path
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
-// Middleware
-app.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:3000', // Allow only this origin to access
+  credentials: true, // Allow cookies and credentials to be sent along
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+app.use(cookieParser())
+app.use(cors(corsOptions));
 app.use(express.json()); // Parses incoming JSON requests
 
 // Routes
